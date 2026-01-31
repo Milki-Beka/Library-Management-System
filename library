@@ -1,0 +1,163 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+  //data storage and initialization
+public class Library implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private Map<String, Book> books;
+    private Map<String, User> users;
+    private static final String DATA_FILE = "library_data.ser";
+     //creating constructor
+    public Library() {
+        this.books = new HashMap<>();
+        this.users = new HashMap<>();
+        initializeDefaultUsers();
+        loadLibraryData();
+    }
+
+    private void initializeDefaultUsers() {
+        // Default Librarian
+        User librarian = new User("librarian", "admin123", "System Librarian", "Librarian");
+        users.put(librarian.getUsername(), librarian);
+
+        // Default Student
+        User student = new User("student", "student123", "Student", "Student");
+        users.put(student.getUsername(), student);
+    }
+
+    // Book Management Methods
+    public boolean addBook(Book book) {
+        if (!books.containsKey(book.getId())) {
+            books.put(book.getId(), book);
+            saveLibraryData();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteBook(String id) {
+        if (books.containsKey(id)) {
+            books.remove(id);
+            saveLibraryData();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateBook(String id, String title, String author, String category, int totalCopies) {
+        if (books.containsKey(id)) {
+            Book book = books.get(id);
+            book.setTitle(title);
+            book.setAuthor(author);
+            book.setCategory(category);
+            book.setTotalCopies(totalCopies);
+            saveLibraryData();
+            return true;
+        }
+        return false;
+    }
+    // searching books methods
+    public Book searchBook(String id) {
+        return books.get(id);
+    }
+
+    public List<Book> searchBooksByTitle(String title) {
+        List<Book> results = new ArrayList<>();
+        for (Book book : books.values()) {
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                results.add(book);
+            }
+        }
+        return results;
+    }
+
+    public List<Book> searchBooksByAuthor(String author) {
+        List<Book> results = new ArrayList<>();
+        for (Book book : books.values()) {
+            if (book.getAuthor().toLowerCase().contains(author.toLowerCase())) {
+                results.add(book);
+            }
+        }
+        return results;
+    }
+
+    public List<Book> searchBooksByCategory(String category) {
+        List<Book> results = new ArrayList<>();
+        for (Book book : books.values()) {
+            if (book.getCategory().toLowerCase().contains(category.toLowerCase())) {
+                results.add(book);
+            }
+        }
+        return results;
+    }
+
+    public List<Book> getAllBooks() {
+        return new ArrayList<>(books.values());
+    }
+
+    // Borrow and Return Methods
+    public boolean borrowBook(String id, User user) {
+        Book book = books.get(id);
+        if (book != null && book.getAvailableCopies() > 0) {
+            book.setAvailableCopies(book.getAvailableCopies() - 1);
+            user.borrowBook(id);
+            saveLibraryData();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean returnBook(String id, User user) {
+        Book book = books.get(id);
+        if (book != null && user.hasBorrowedBook(id)) {
+            book.setAvailableCopies(book.getAvailableCopies() + 1);
+            user.returnBook(id);
+            saveLibraryData();
+            return true;
+        }
+        return false;
+    }
+
+    // User Authentication
+    public User authenticateUser(String username, String password) {
+        User user = users.get(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
+
+    public void addUser(User user) {
+        users.put(user.getUsername(), user);
+        saveLibraryData();
+    }
+
+    public List<User> getAllUsers() {
+        return new ArrayList<>(users.values());
+    }
+
+    // Data Persistence
+    @SuppressWarnings("unchecked")
+    private void loadLibraryData() {
+        File file = new File(DATA_FILE);
+        if (file.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                Library loadedLibrary = (Library) ois.readObject();
+                this.books = loadedLibrary.books;
+                this.users = loadedLibrary.users;
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error loading library data: " + e.getMessage());
+            }
+        }
+    }
+
+    private void saveLibraryData() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+            oos.writeObject(this);
+        } catch (IOException e) {
+            System.out.println("Error saving library data: " + e.getMessage());
+        }
+    }
+}
