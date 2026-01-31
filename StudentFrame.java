@@ -270,7 +270,7 @@ StudentFrame represents the student panel window of the library system
             String title = (String) booksTableModel.getValueAt(selectedRow, 1);
 
             int confirm = JOptionPane.showConfirmDialog(StudentFrame.this,
-                    "Do you want to borrow: " + title + "book ?","Confirm Borrow", JOptionPane.YES_NO_OPTION);
+                    "Do you want to borrow: " + title + " book ?","Confirm Borrow", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {  // Check if the user confirmed the borrowing action
                 if (library.borrowBook(id, student)) {
@@ -308,7 +308,7 @@ StudentFrame represents the student panel window of the library system
             String title = (String) borrowedTableModel.getValueAt(selectedRow, 1);
 
             int confirm = JOptionPane.showConfirmDialog(StudentFrame.this,
-                    "Do you want to return: " + title + "book ?",
+                    "Do you want to return: " + title + " book ?",
                     "Confirm Return",
                     JOptionPane.YES_NO_OPTION);
 
@@ -330,3 +330,4 @@ StudentFrame represents the student panel window of the library system
     }
 
 }
+
