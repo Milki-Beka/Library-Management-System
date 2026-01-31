@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class StudentFrame extends JFrame {
+    private final Color PRIMARY_COLOR = new Color(124, 224, 232);
+    private final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 16);
     private Library library;
     private User student;
     private JTable booksTable;
@@ -15,8 +17,6 @@ public class StudentFrame extends JFrame {
     // extends JFrame means this class inherits window features
     // StudentFrame represents the student panel window of the library system
 
-StudentFrame represents the student panel window of the library system
-
     public StudentFrame(Library library, User student) {
         this.library = library;
         this.student = student;
@@ -24,10 +24,17 @@ StudentFrame represents the student panel window of the library system
     }
 
     private void initializeUI() { // Calls a method that builds the entire user interface.
-        setTitle("Library Management System - Student Panel");
-        setSize(1100, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        try {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    setTitle("Library Management System - Student Panel");
+    setSize(1100, 800);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+        setTitle();
 
         // Create menu bar
         JMenuBar menuBar = new JMenuBar();
@@ -56,11 +63,17 @@ StudentFrame represents the student panel window of the library system
         add(splitPane, BorderLayout.CENTER);// to make on the center
 
         // Welcome panel
-        JPanel welcomePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        welcomePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        JLabel welcomeLabel = new JLabel("Welcome, " + student.getName() + " (" + student.getUsername() + ")");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        welcomePanel.add(welcomeLabel);
+       JPanel welcomePanel = new JPanel(new BorderLayout());
+        welcomePanel.setBackground(PRIMARY_COLOR);
+        welcomePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JLabel welcomeLabel = new JLabel(
+                "Welcome, " + student.getName() + " (" + student.getUsername() + ")"
+        );
+        welcomeLabel.setFont(TITLE_FONT);
+        welcomeLabel.setForeground(Color.WHITE);
+
+        welcomePanel.add(welcomeLabel, BorderLayout.WEST);
         add(welcomePanel, BorderLayout.NORTH);
 
         loadAvailableBooks();
@@ -77,8 +90,11 @@ StudentFrame represents the student panel window of the library system
         JComboBox<String> searchType = new JComboBox<>(new String[]{"ID", "Title", "Author", "Category"});
         JTextField searchField = new JTextField(15);
         JButton searchButton = new JButton("Search");
+        searchButton.setBackground(new Color(182, 182, 239));
         JButton showAllButton = new JButton("Show All");
+        showAllButton.setBackground(new Color(182, 182, 239));
         JButton borrowButton = new JButton("Borrow Book");
+        borrowButton.setBackground(new Color(182, 182, 239));
 
         searchButton.addActionListener(e -> {
             String type = (String) searchType.getSelectedItem();
@@ -124,6 +140,7 @@ StudentFrame represents the student panel window of the library system
         // Return button
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton returnButton = new JButton("Return Book");
+        returnButton.setBackground(new Color(182, 182, 239));
         returnButton.addActionListener(new ReturnBookListener());
         buttonPanel.add(returnButton);
         panel.add(buttonPanel, BorderLayout.NORTH);
@@ -330,4 +347,5 @@ StudentFrame represents the student panel window of the library system
     }
 
 }
+
 
