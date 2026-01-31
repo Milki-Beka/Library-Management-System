@@ -68,10 +68,10 @@ public class StudentFrame extends JFrame {
         welcomePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         JLabel welcomeLabel = new JLabel(
-                "Welcome, " + student.getName() + " (" + student.getUsername() + ")"
+                "Welcome, " + student.getName()
         );
         welcomeLabel.setFont(TITLE_FONT);
-        welcomeLabel.setForeground(Color.WHITE);
+        welcomeLabel.setForeground(Color.BLACK);
 
         welcomePanel.add(welcomeLabel, BorderLayout.WEST);
         add(welcomePanel, BorderLayout.NORTH);
@@ -347,5 +347,6 @@ public class StudentFrame extends JFrame {
     }
 
 }
+
 
 
