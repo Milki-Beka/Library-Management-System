@@ -1,7 +1,7 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.*;  //used to build the graphical user interface.
+import javax.swing.table.DefaultTableModel;  //used to store and manage table data in JTable.
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent;  //used to handle button click events.
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -12,6 +12,10 @@ public class StudentFrame extends JFrame {
     private JTable borrowedTable;
     private DefaultTableModel booksTableModel;
     private DefaultTableModel borrowedTableModel;
+    // extends JFrame means this class inherits window features
+    // StudentFrame represents the student panel window of the library system
+
+StudentFrame represents the student panel window of the library system
 
     public StudentFrame(Library library, User student) {
         this.library = library;
@@ -19,7 +23,7 @@ public class StudentFrame extends JFrame {
         initializeUI();
     }
 
-    private void initializeUI() {
+    private void initializeUI() { // Calls a method that builds the entire user interface.
         setTitle("Library Management System - Student Panel");
         setSize(1100, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,15 +45,15 @@ public class StudentFrame extends JFrame {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setDividerLocation(650);
 
-        // Left panel - Available Books
+        // Left panel - Available Books, places the available books panel on the left side.
         JPanel leftPanel = createAvailableBooksPanel();
         splitPane.setLeftComponent(leftPanel);
 
-        // Right panel - Borrowed Books
+        // Right panel - Borrowed Books, places the borrowed books panel on the right side.
         JPanel rightPanel = createBorrowedBooksPanel();
         splitPane.setRightComponent(rightPanel);
 
-        add(splitPane, BorderLayout.CENTER);
+        add(splitPane, BorderLayout.CENTER);// to make on the center
 
         // Welcome panel
         JPanel welcomePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -139,7 +143,7 @@ public class StudentFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(borrowedTable);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Info label
+        // Information label
         JLabel infoLabel = new JLabel("<html><center>Select a book and click 'Borrow' or 'Return'<br>You can borrow multiple copies of the same book</center></html>",
                 SwingConstants.CENTER);
         panel.add(infoLabel, BorderLayout.SOUTH);
@@ -147,7 +151,7 @@ public class StudentFrame extends JFrame {
         return panel;
     }
 
-    private void loadAvailableBooks() {
+    private void loadAvailableBooks() {  // to show available book.
         booksTableModel.setRowCount(0);
         List<Book> books = library.getAllBooks();
         for (Book book : books) {
@@ -183,8 +187,8 @@ public class StudentFrame extends JFrame {
         booksTableModel.setRowCount(0);
         List<Book> books;
 
-        switch (type) {
-            case "ID":
+        switch (type) { 
+            case "ID": // to search book using the book ID
                 Book book = library.searchBook(query);
                 if (book != null && book.getAvailableCopies() > 0) {
                     Object[] row = {
@@ -197,7 +201,7 @@ public class StudentFrame extends JFrame {
                     booksTableModel.addRow(row);
                 }
                 break;
-            case "Title":
+            case "Title": // to search book using the book title
                 books = library.searchBooksByTitle(query);
                 for (Book b : books) {
                     if (b.getAvailableCopies() > 0) {
@@ -212,7 +216,7 @@ public class StudentFrame extends JFrame {
                     }
                 }
                 break;
-            case "Author":
+            case "Author": // to search book using the author's name
                 books = library.searchBooksByAuthor(query);
                 for (Book b : books) {
                     if (b.getAvailableCopies() > 0) {
@@ -227,7 +231,7 @@ public class StudentFrame extends JFrame {
                     }
                 }
                 break;
-            case "Category":
+            case "Category": // to search book using the book category
                 books = library.searchBooksByCategory(query);
                 for (Book b : books) {
                     if (b.getAvailableCopies() > 0) {
@@ -250,11 +254,12 @@ public class StudentFrame extends JFrame {
         new LoginFrame(library).setVisible(true);
     }
 
+   // Listener class to handle borrowing a book action
     private class BorrowBookListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedRow = booksTable.getSelectedRow();
-            if (selectedRow == -1) {
+            if (selectedRow == -1) {   // Check if no book is selected
                 JOptionPane.showMessageDialog(StudentFrame.this,
                         "Please select a book to borrow!",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -265,18 +270,19 @@ public class StudentFrame extends JFrame {
             String title = (String) booksTableModel.getValueAt(selectedRow, 1);
 
             int confirm = JOptionPane.showConfirmDialog(StudentFrame.this,
-                    "Do you want to borrow: " + title + "book ?",
-                    "Confirm Borrow",
-                    JOptionPane.YES_NO_OPTION);
+                    "Do you want to borrow: " + title + "book ?","Confirm Borrow", JOptionPane.YES_NO_OPTION);
 
-            if (confirm == JOptionPane.YES_OPTION) {
+            if (confirm == JOptionPane.YES_OPTION) {  // Check if the user confirmed the borrowing action
                 if (library.borrowBook(id, student)) {
-                    JOptionPane.showMessageDialog(StudentFrame.this,
+                    JOptionPane.showMessageDialog(StudentFrame.this,  // if borrowing is successful
                             " Book borrowed successfully!",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
+                    // Refresh available and borrowed books tables
                     loadAvailableBooks();
                     loadBorrowedBooks();
-                } else {
+                } 
+                // if borrowing fails
+                else {  
                     JOptionPane.showMessageDialog(StudentFrame.this,
                             "Error borrowing book!",
                             "Error", JOptionPane.ERROR_MESSAGE);
@@ -285,8 +291,10 @@ public class StudentFrame extends JFrame {
         }
     }
 
+    // Listener class to handle returning a book action
     private class ReturnBookListener implements ActionListener {
         @Override
+        // when the Return button is clicked
         public void actionPerformed(ActionEvent e) {
             int selectedRow = borrowedTable.getSelectedRow();
             if (selectedRow == -1) {
@@ -309,6 +317,7 @@ public class StudentFrame extends JFrame {
                     JOptionPane.showMessageDialog(StudentFrame.this,
                             "Book returned successfully!",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
+                   // Refresh available and borrowed books tables
                     loadAvailableBooks();
                     loadBorrowedBooks();
                 } else {
@@ -319,4 +328,5 @@ public class StudentFrame extends JFrame {
             }
         }
     }
+
 }
