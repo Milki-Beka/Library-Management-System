@@ -1,0 +1,20 @@
+import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        // Set look and feel to system default
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Initialize library
+        Library library = new Library();
+
+        // Show login frame on Event Dispatch Thread
+        SwingUtilities.invokeLater(() -> {
+            LoginFrame loginFrame = new LoginFrame(library);
+            loginFrame.setVisible(true);
+        });
+    }
+}
