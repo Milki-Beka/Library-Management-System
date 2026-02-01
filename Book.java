@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Book implements serializable {
+public class Book implements Serializable {
     private String id; // Unique ID for the book
     private String title; // Title of the book
     private String author; // Author of the book
@@ -85,6 +85,7 @@ public Book(String id, String title, String author, String category, int totalCo
    
   
  }
+
 
 
 
