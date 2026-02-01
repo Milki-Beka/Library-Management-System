@@ -12,7 +12,8 @@ The system enables librarians to manage book records which they can use to perfo
 -	Borrowing System
 -	Returning system
 
-
+# Language
+ Java "OOP"
 ## Project Structure
 
 ### Core Classes
@@ -22,7 +23,8 @@ The system enables librarians to manage book records which they can use to perfo
 ### GUI Classes
 - **LoginFrame.java**
 - **StudentFrame.java**
-- **LibrarianFrame.java** 
+- **LibrarianFrame.java**
+- **LoginFrame.java**
 
 - **Main.java**
 
