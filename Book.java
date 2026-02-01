@@ -5,9 +5,9 @@ public class Book implements Serializable {
     private String title; // Title of the book
     private String author; // Author of the book
     private String category; // Book category (enum)
-    private int totalCopies; // Total copies available in library
-    private boolean available; 
+    private int totalCopies; // Total copies available in library 
     private int availableCopies;
+    private boolean available;
     
 
     // Constructor
@@ -17,8 +17,8 @@ public Book(String id, String title, String author, String category, int totalCo
     this.author = author;
     this.category = category;
     this.totalCopies = totalCopies;
-    this.available = true;
     this.availableCopies = totalCopies;
+    this.available = true;
 }
 // Getters and setters
      public String getId() {
@@ -85,6 +85,7 @@ public Book(String id, String title, String author, String category, int totalCo
    
   
  }
+
 
 
 
