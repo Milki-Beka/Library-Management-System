@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class LibrarianFrame extends JFrame {
+    private final Color PRIMARY_COLOR = new Color(124, 224, 232);
+    private final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 16);
     private Library library;
     private User librarian;
     private JTable booksTable;
@@ -39,6 +41,21 @@ public class LibrarianFrame extends JFrame {
         fileMenu.add(exitItem);
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
+        
+         // Welcome panel
+       JPanel welcomePanel = new JPanel(new BorderLayout());
+        welcomePanel.setBackground(PRIMARY_COLOR);
+        welcomePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JLabel welcomeLabel = new JLabel(
+               "Welcome, " + librarian.getUsername()+ "!"
+        );
+        welcomeLabel.setFont(TITLE_FONT);
+        welcomeLabel.setForeground(Color.white);
+
+        welcomePanel.add(welcomeLabel, BorderLayout.WEST);
+        add(welcomePanel, BorderLayout.NORTH);
+
 
         // Create main panel with BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -418,3 +435,4 @@ public class LibrarianFrame extends JFrame {
         }
     }
 }
+
