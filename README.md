@@ -18,7 +18,11 @@ The system enables librarians to manage book records which they can use to perfo
 
 ### Core Classes
 - **Book.java**
-- **Library.java** 
+- **Library.java**
+
+## Enum Classes
+- **Role.java**
+- **Catagory.java**
 
 ### GUI Classes
 - **LoginFrame.java**
