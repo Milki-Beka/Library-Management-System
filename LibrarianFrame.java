@@ -51,7 +51,7 @@ public class LibrarianFrame extends JFrame {
                "Welcome, " + librarian.getUsername()+ "!"
         );
         welcomeLabel.setFont(TITLE_FONT);
-        welcomeLabel.setForeground(Color.white);
+        welcomeLabel.setForeground(Color.black);
 
         welcomePanel.add(welcomeLabel, BorderLayout.WEST);
         add(welcomePanel, BorderLayout.NORTH);
@@ -435,4 +435,5 @@ public class LibrarianFrame extends JFrame {
         }
     }
 }
+
 
