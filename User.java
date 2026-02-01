@@ -1,47 +1,81 @@
-package library;
-/**
- * Represents a library user.
- * Each user has an ID, a name, a role (like STUDENT or LIBRARIAN),
- * and can borrow books.
- */
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class User {
-    private int id; // Unique ID for the user
-    private String name; // User's name
-    private Role role; // User's role (enum)
-    private int borrowedCount; // Number of books currently borrowed
+public class User implements Serializable {
+    protected String username; // Unique username for the user
+    protected String password; // User's password
+    protected String name; // User's name
+    protected String role; // user's role
+    protected List<String> borrowedBooks; // Number of books currently borrowed
 
     // Constructor
-    public User(int id, String name, Role role) {
-        this.id = id;
+    public User(String username, String password, String name, String role) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.role = role;
-        this.borrowedCount = 0;
-    }
-    // Getters
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public Role getRole() { return role; }
-    public int getBorrowedCount() { return borrowedCount;}
-
-    // Borrow a book
-    public void borrowBook() {
-        borrowedCount++;
-        System.out.println( name + " (" + role + ") borrowed a book! Total borrowed: " + borrowedCount);
+        this.borrowedBooks = new ArrayList<>();
     }
 
-    // Return a book
-    public void returnBook() {
-        if (borrowedCount > 0) {
-            borrowedCount--;
-            System.out.println( + name + " returned a book. Remaining borrowed: " + borrowedCount);
-        } else {
-            System.out.println( + name + " has no books to return!");
+    // Getters and setters
+   public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public List<String> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void borrowBook(String id) {
+        if (!borrowedBooks.contains(id)) {
+            borrowedBooks.add(id);
         }
     }
-    // Display user info
-    public void showInfo() {
-        System.out.println(" User: " + name + " (ID: " + id + ", Role: " + role + ") | Borrowed: " + borrowedCount);
+
+    public void returnBook(String id) {
+        borrowedBooks.remove(id);
     }
+
+    public boolean hasBorrowedBook(String id) {
+        return borrowedBooks.contains(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Username: " + username + " | Name: " + name + " | Role: " + role;
+    }
+
+
+   
 }
+
 
