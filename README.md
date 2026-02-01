@@ -22,7 +22,7 @@ The system enables librarians to manage book records which they can use to perfo
 
 ## Enum Classes
 - **Role.java**
-- **Catagory.java**
+- **Category.java**
 
 ### GUI Classes
 - **LoginFrame.java**
