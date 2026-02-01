@@ -1,59 +1,89 @@
-package library;
-/**
- * Represents a book in the library.
- * Each book has an ID, title, author, category, and total copies.
- */
+import java.io.Serializable;
 
-public class Book {
-    private int id; // Unique ID for the book
+public class Book implements serializable {
+    private string id; // Unique ID for the book
     private String title; // Title of the book
     private String author; // Author of the book
-    private Category category; // Book category (enum)
+    private String category; // Book category (enum)
     private int totalCopies; // Total copies available in library
-    private int borrowedCopies; // Number of copies currently borrowed
+    private boolean available; 
+    private int availableCopies;
+    
 
     // Constructor
-public Book(int id, String title, String author, Category category, int totalCopies) {
+public Book(String id, String title, String author, String category, int totalCopies) {
     this.id = id;
     this.title = title;
     this.author = author;
     this.category = category;
     this.totalCopies = totalCopies;
-    this.borrowedCopies = 0;
+    this.available = true;
+    this.availableCopies = totalCopies;
 }
-// Getters
-    public int getId() {return id; }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public Category getCategory() { return category; }
-    public int getTotalCopies() { return totalCopies; }
-    public int getBorrowedCopies() { return borrowedCopies; }
+// Getters and setters
+     public String getId() {
+        return id;
+    }
 
-    // Borrow a copy
-    public void borrow() {
-        if (borrowedCopies < totalCopies) {
-            borrowedCopies++;
-            System.out.println(" \"" + title + "\" borrowed! Copies left: " + (totalCopies - borrowedCopies));
-        } else {System.out.println(" No copies of \"" + title + "\" are available.");
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        }
+    public String getTitle() {
+        return title;
     }
-    // Return a copy
-    public void returnBook() {
-        if (borrowedCopies > 0) {
-            borrowedCopies--;
-            System.out.println(" \"" + title + "\" returned. Copies left: " + (totalCopies - borrowedCopies));
-        } else {
-            System.out.println(" No borrowed copies of \"" + title + "\" to return.");
-        }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
-    // Display book info
-    public void showInfo() {
-        String status = (borrowedCopies < totalCopies) ? " Available" : " All borrowed";
-        System.out.println(" Book: " + title + " by " + author + " (ID: " + id + ", Category: " + category + ")\n " +
-                " Total: " + totalCopies + "\n" +
-                "  Borrowed: " + borrowedCopies + "\n" +
-                "  Status: " + status);
+
+    public String getAuthor() {
+        return author;
     }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getTotalCopies() {
+        return totalCopies;
+    }
+
+    public void setTotalCopies(int totalCopies) {
+        this.totalCopies = totalCopies;
+    }
+
+    public int getAvailableCopies() {
+        return availableCopies;
+    }
+
+    public void setAvailableCopies(int availableCopies) {
+        this.availableCopies = availableCopies;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+    @Override
+    public String toString() {
+        return "ID: " + id + " | Title: " + title + " | Author: " + author +
+                " | Category: " + category + " | Available: " + availableCopies + "/" + totalCopies;
+    }
+
+   
+  
  }
+
 
