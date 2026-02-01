@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class Book implements serializable {
-    private string id; // Unique ID for the book
+    private String id; // Unique ID for the book
     private String title; // Title of the book
     private String author; // Author of the book
     private String category; // Book category (enum)
@@ -85,5 +85,6 @@ public Book(String id, String title, String author, String category, int totalCo
    
   
  }
+
 
 
