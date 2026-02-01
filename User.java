@@ -27,20 +27,21 @@ public class User {
     // Borrow a book
     public void borrowBook() {
         borrowedCount++;
-        System.out.println("📚 " + name + " (" + role + ") borrowed a book! Total borrowed: " + borrowedCount);
+        System.out.println( name + " (" + role + ") borrowed a book! Total borrowed: " + borrowedCount);
     }
 
     // Return a book
     public void returnBook() {
         if (borrowedCount > 0) {
             borrowedCount--;
-            System.out.println("✅ " + name + " returned a book. Remaining borrowed: " + borrowedCount);
+            System.out.println( + name + " returned a book. Remaining borrowed: " + borrowedCount);
         } else {
-            System.out.println("⚠️ " + name + " has no books to return!");
+            System.out.println( + name + " has no books to return!");
         }
     }
     // Display user info
     public void showInfo() {
-        System.out.println("👤 User: " + name + " (ID: " + id + ", Role: " + role + ") | Borrowed: " + borrowedCount);
+        System.out.println(" User: " + name + " (ID: " + id + ", Role: " + role + ") | Borrowed: " + borrowedCount);
     }
 }
+
