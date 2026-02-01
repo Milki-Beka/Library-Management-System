@@ -33,8 +33,8 @@ public Book(int id, String title, String author, Category category, int totalCop
     public void borrow() {
         if (borrowedCopies < totalCopies) {
             borrowedCopies++;
-            System.out.println("📖 \"" + title + "\" borrowed! Copies left: " + (totalCopies - borrowedCopies));
-        } else {System.out.println("❌ No copies of \"" + title + "\" are available.");
+            System.out.println(" \"" + title + "\" borrowed! Copies left: " + (totalCopies - borrowedCopies));
+        } else {System.out.println(" No copies of \"" + title + "\" are available.");
 
         }
     }
@@ -42,17 +42,18 @@ public Book(int id, String title, String author, Category category, int totalCop
     public void returnBook() {
         if (borrowedCopies > 0) {
             borrowedCopies--;
-            System.out.println("🔄 \"" + title + "\" returned. Copies left: " + (totalCopies - borrowedCopies));
+            System.out.println(" \"" + title + "\" returned. Copies left: " + (totalCopies - borrowedCopies));
         } else {
-            System.out.println("⚠️ No borrowed copies of \"" + title + "\" to return.");
+            System.out.println(" No borrowed copies of \"" + title + "\" to return.");
         }
     }
     // Display book info
     public void showInfo() {
-        String status = (borrowedCopies < totalCopies) ? "✅ Available" : "❌ All borrowed";
-        System.out.println("📘 Book: " + title + " by " + author + " (ID: " + id + ", Category: " + category + ")\n " +
+        String status = (borrowedCopies < totalCopies) ? " Available" : " All borrowed";
+        System.out.println(" Book: " + title + " by " + author + " (ID: " + id + ", Category: " + category + ")\n " +
                 " Total: " + totalCopies + "\n" +
                 "  Borrowed: " + borrowedCopies + "\n" +
                 "  Status: " + status);
     }
  }
+
