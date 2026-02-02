@@ -25,7 +25,6 @@ The system enables librarians to manage book records which they can use to perfo
 - **LoginFrame.java**
 - **StudentFrame.java**
 - **LibrarianFrame.java**
-- **LoginFrame.java**
 
 - **Main.java**
 
